@@ -1,9 +1,23 @@
 package io.loanpro.calculator.domain.model;
 
+import jakarta.persistence.*;
+
+import java.util.List;
+
+@Entity
+@Table(name = "operation")
 public class Operation {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     OperationType type;
-    Long cost;
+    @Column(nullable = false)
+    Double cost;
+
+    @OneToMany(mappedBy = "operation", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Record> records;
 
     public Long getId() {
         return id;
@@ -23,12 +37,21 @@ public class Operation {
         return this;
     }
 
-    public Long getCost() {
+    public Double getCost() {
         return cost;
     }
 
-    public Operation setCost(Long cost) {
+    public Operation setCost(Double cost) {
         this.cost = cost;
+        return this;
+    }
+
+    public List<Record> getRecords() {
+        return records;
+    }
+
+    public Operation setRecords(List<Record> records) {
+        this.records = records;
         return this;
     }
 }

@@ -1,14 +1,28 @@
 package io.loanpro.calculator.domain.model;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "record")
 public class Record {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    Long operationId;
-    Long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "operation_id", nullable = false)
+    Operation operation;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    User user;
+    @Column(nullable = false)
     Double amount;
-    Long userBalance;
+    @Column(nullable = false)
+    Double userBalance;
+    @Column(nullable = false)
     Double operationResponse;
+    @Column(nullable = false)
     LocalDateTime date;
 
     public Long getId() {
@@ -20,21 +34,21 @@ public class Record {
         return this;
     }
 
-    public Long getOperationId() {
-        return operationId;
+    public Operation getOperationId() {
+        return operation;
     }
 
-    public Record setOperationId(Long operationId) {
-        this.operationId = operationId;
+    public Record setOperation(Operation operation) {
+        this.operation = operation;
         return this;
     }
 
-    public Long getUserId() {
-        return userId;
+    public User getUserId() {
+        return user;
     }
 
-    public Record setUserId(Long userId) {
-        this.userId = userId;
+    public Record setUser(User user) {
+        this.user = user;
         return this;
     }
 
@@ -47,11 +61,11 @@ public class Record {
         return this;
     }
 
-    public Long getUserBalance() {
+    public Double getUserBalance() {
         return userBalance;
     }
 
-    public Record setUserBalance(Long userBalance) {
+    public Record setUserBalance(Double userBalance) {
         this.userBalance = userBalance;
         return this;
     }

@@ -1,7 +1,9 @@
 package io.loanpro.calculator.application;
 
 import io.loanpro.calculator.domain.strategy.CalculationStrategy;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CalculatorContext {
     private CalculationStrategy strategy;
 
